@@ -1,0 +1,970 @@
+<!DOCTYPE html>
+<html lang="vi">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Bài kiểm tra đầu vào – Vingo English</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Be+Vietnam+Pro:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ======================================================================
+   VINGO ENGLISH – BÀI KIỂM TRA ĐẦU VÀO (GIAO TIẾP)
+   Màu thương hiệu: #005BEA (xanh) – #FFBC09 (vàng)
+   ====================================================================== */
+:root{
+  --blue:#005BEA; --blue-d:#0047B8; --blue-50:#EEF4FF; --blue-100:#DCE8FF;
+  --yellow:#FFBC09; --yellow-50:#FFF7E0;
+  --ink:#0B1B3F; --ink-2:#44506B; --ink-3:#7A859C; --line:#E3E8F2;
+  --bg:#F4F7FD; --white:#fff; --green:#14A44D; --red:#E5383B;
+  --r:14px; --shadow:0 6px 24px rgba(11,27,63,.08);
+}
+*{box-sizing:border-box}
+html,body{margin:0;padding:0}
+body{font-family:"Be Vietnam Pro",system-ui,-apple-system,Segoe UI,Roboto,sans-serif;color:var(--ink);background:var(--bg);font-size:16px;line-height:1.55}
+button{font-family:inherit}
+.hidden{display:none!important}
+
+/* ---------- Top bar ---------- */
+.topbar{position:sticky;top:0;z-index:50;background:var(--white);border-bottom:1px solid var(--line)}
+.topbar-in{max-width:1100px;margin:0 auto;padding:10px 20px;display:flex;align-items:center;gap:16px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;letter-spacing:.5px}
+.brand img{height:34px}
+.brand .w1{color:var(--blue)} .brand .w2{color:var(--yellow)}
+.top-right{margin-left:auto;display:flex;align-items:center;gap:12px}
+.timer{display:flex;align-items:center;gap:8px;background:var(--blue-50);color:var(--blue);font-weight:700;padding:7px 14px;border-radius:999px;font-variant-numeric:tabular-nums}
+.timer.warn{background:#FFF0F0;color:var(--red)}
+.cand{color:var(--ink-2);font-size:14px}
+
+/* ---------- Layout ---------- */
+.wrap{max-width:1100px;margin:0 auto;padding:24px 20px 80px}
+.card{background:var(--white);border-radius:var(--r);box-shadow:var(--shadow);padding:28px}
+.narrow{max-width:720px;margin:0 auto}
+h1{font-size:28px;line-height:1.25;margin:0 0 8px}
+h2{font-size:22px;margin:0 0 6px}
+h3{font-size:17px;margin:0 0 8px}
+.muted{color:var(--ink-3)}
+.lead{color:var(--ink-2);font-size:17px}
+.pill{display:inline-block;background:var(--yellow-50);color:#8A6300;font-weight:600;font-size:13px;padding:4px 10px;border-radius:999px}
+
+/* ---------- Buttons ---------- */
+.btn{border:0;border-radius:10px;padding:12px 22px;font-size:16px;font-weight:600;cursor:pointer;display:inline-flex;align-items:center;gap:8px;transition:.15s}
+.btn-primary{background:var(--blue);color:#fff}.btn-primary:hover{background:var(--blue-d)}
+.btn-accent{background:var(--yellow);color:var(--ink)}.btn-accent:hover{filter:brightness(.96)}
+.btn-ghost{background:var(--white);color:var(--blue);border:1.5px solid var(--blue-100)}.btn-ghost:hover{background:var(--blue-50)}
+.btn-danger{background:var(--red);color:#fff}
+.btn:disabled{opacity:.45;cursor:not-allowed}
+.btn-lg{padding:15px 28px;font-size:17px}
+.row{display:flex;gap:12px;flex-wrap:wrap;align-items:center}
+.row.end{justify-content:flex-end}
+.spacer{flex:1}
+
+/* ---------- Welcome ---------- */
+.hero{display:grid;grid-template-columns:1.2fr 1fr;gap:28px;align-items:center}
+.hero-art{background:linear-gradient(135deg,var(--blue) 0%,#2F7BFF 100%);border-radius:var(--r);color:#fff;padding:28px;position:relative;overflow:hidden}
+.hero-art:after{content:"";position:absolute;right:-40px;bottom:-40px;width:180px;height:180px;border-radius:50%;background:var(--yellow);opacity:.9}
+.hero-art .big{font-size:44px;font-weight:800;line-height:1}
+.parts{display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:18px 0}
+.part{background:var(--blue-50);border-radius:12px;padding:12px}
+.part b{display:block;color:var(--blue)}
+.part span{font-size:13px;color:var(--ink-2)}
+.rules{margin:10px 0 0;padding-left:20px;color:var(--ink-2)}
+.rules li{margin:4px 0}
+
+/* ---------- Form ---------- */
+.form-grid{display:grid;grid-template-columns:1fr 1fr;gap:16px}
+.field{display:flex;flex-direction:column;gap:6px}
+.field.full{grid-column:1/-1}
+label.lb{font-weight:600;font-size:14px}
+label.lb .req{color:var(--red)}
+input[type=text],input[type=email],input[type=tel],select,textarea{font:inherit;color:inherit;border:1.5px solid var(--line);border-radius:10px;padding:11px 13px;background:#fff;outline:none;width:100%}
+input:focus,select:focus,textarea:focus{border-color:var(--blue);box-shadow:0 0 0 3px var(--blue-100)}
+.err{color:var(--red);font-size:13px;min-height:0}
+.chips{display:flex;flex-wrap:wrap;gap:8px}
+.chip{border:1.5px solid var(--line);border-radius:999px;padding:7px 14px;cursor:pointer;user-select:none;font-size:14px;background:#fff}
+.chip.on{border-color:var(--blue);background:var(--blue-50);color:var(--blue);font-weight:600}
+.consent{display:flex;gap:10px;align-items:flex-start;font-size:14px;color:var(--ink-2);background:var(--bg);padding:12px;border-radius:10px}
+.consent input{margin-top:4px;width:18px;height:18px}
+
+/* ---------- Device check ---------- */
+.check-grid{display:grid;grid-template-columns:1fr 1fr;gap:18px;margin-top:16px}
+.check{border:1.5px solid var(--line);border-radius:var(--r);padding:20px}
+.check.ok{border-color:var(--green);background:#F1FBF5}
+.check .st{font-weight:700;margin-top:10px}
+.meter{height:10px;background:var(--line);border-radius:99px;overflow:hidden;margin:12px 0}
+.meter i{display:block;height:100%;width:0;background:linear-gradient(90deg,var(--green),var(--yellow));transition:width .08s}
+
+/* ---------- Test ---------- */
+.tabs{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:18px}
+.tab{background:#fff;border:1.5px solid var(--line);border-radius:10px;padding:9px 14px;cursor:pointer;font-weight:600;font-size:14px;color:var(--ink-2);display:flex;gap:8px;align-items:center}
+.tab .cnt{font-size:12px;background:var(--bg);border-radius:99px;padding:1px 8px;color:var(--ink-3)}
+.tab.on{background:var(--blue);color:#fff;border-color:var(--blue)}
+.tab.on .cnt{background:rgba(255,255,255,.2);color:#fff}
+.tab.done .cnt{background:#E3F6EA;color:var(--green)}
+.sec-head{display:flex;align-items:baseline;gap:12px;margin-bottom:4px}
+.sec-head .pts{color:var(--blue);font-weight:700}
+.task{margin-top:22px;padding-top:20px;border-top:1px dashed var(--line)}
+.task:first-of-type{border-top:0;padding-top:0}
+.task-title{font-weight:700;margin-bottom:12px}
+.task-title small{font-weight:500;color:var(--ink-3)}
+
+/* audio player */
+.player{display:flex;align-items:center;gap:14px;background:var(--blue-50);border:1.5px solid var(--blue-100);border-radius:12px;padding:12px 16px;margin-bottom:16px}
+.play-btn{width:46px;height:46px;border-radius:50%;border:0;background:var(--blue);color:#fff;cursor:pointer;display:grid;place-items:center;flex:none}
+.play-btn:disabled{background:#9DB5E8;cursor:not-allowed}
+.prog{flex:1;height:8px;background:#fff;border-radius:99px;overflow:hidden}
+.prog i{display:block;height:100%;width:0;background:var(--blue)}
+.plays{font-size:14px;font-weight:600;color:var(--ink-2);white-space:nowrap}
+.plays b{color:var(--blue)}
+
+.dialog{background:var(--bg);border-radius:12px;padding:14px 16px;margin-bottom:12px}
+.dialog .no{font-weight:700;color:var(--blue);margin-bottom:6px}
+.dialog p{margin:4px 0}
+.blank{display:inline-flex;align-items:center;gap:6px;margin:2px 4px}
+.blank .n{font-weight:700;color:var(--blue);font-size:14px}
+.blank input{width:190px;padding:6px 10px;border-radius:8px}
+table.tbl{border-collapse:collapse;width:100%;max-width:520px}
+table.tbl th,table.tbl td{border:1px solid var(--line);padding:8px 10px;text-align:left}
+table.tbl th{background:var(--blue-50);font-size:14px}
+table.tbl input{width:100%;padding:6px 10px;border-radius:8px}
+
+.q{padding:12px 0;border-bottom:1px solid #F0F2F7}
+.q:last-child{border-bottom:0}
+.q .stem{margin-bottom:8px}
+.q .stem b{color:var(--blue);margin-right:4px}
+.opts{display:flex;flex-wrap:wrap;gap:8px}
+.opt{border:1.5px solid var(--line);border-radius:10px;padding:8px 14px;cursor:pointer;background:#fff;font-size:15px;user-select:none}
+.opt:hover{border-color:var(--blue-100);background:var(--blue-50)}
+.opt.on{border-color:var(--blue);background:var(--blue);color:#fff}
+.opt .k{font-weight:700;margin-right:6px}
+.match{display:grid;grid-template-columns:150px 1fr;gap:10px;align-items:center;padding:6px 0}
+.match .w{font-weight:600}
+.passage{background:var(--yellow-50);border-left:4px solid var(--yellow);border-radius:10px;padding:16px 18px;margin-bottom:14px;line-height:1.75}
+.passage .g{display:inline-block;min-width:44px;text-align:center;font-weight:700;color:var(--blue);border-bottom:2px solid var(--blue);margin:0 3px}
+.read-grid{display:grid;grid-template-columns:1.1fr 1fr;gap:20px;align-items:start}
+.read-grid .passage{position:sticky;top:82px;max-height:calc(100vh - 110px);overflow:auto}
+.verb{display:flex;flex-wrap:wrap;align-items:center;gap:6px;padding:10px 0;border-bottom:1px solid #F0F2F7}
+.verb input{width:200px;padding:6px 10px;border-radius:8px}
+textarea.writing{min-height:260px;resize:vertical;line-height:1.7}
+.wc{font-size:14px;color:var(--ink-3);text-align:right;margin-top:6px}
+.nav-foot{display:flex;justify-content:space-between;margin-top:26px;gap:12px;flex-wrap:wrap}
+
+/* ---------- Speaking ---------- */
+.sp-wrap{max-width:760px;margin:0 auto}
+.sp-steps{display:flex;gap:6px;margin:14px 0 22px}
+.sp-steps i{flex:1;height:6px;border-radius:99px;background:var(--line)}
+.sp-steps i.done{background:var(--green)}
+.sp-steps i.cur{background:var(--blue)}
+.sp-card{text-align:center;padding:36px 28px}
+.sp-text{font-size:30px;font-weight:700;line-height:1.35;margin:18px 0 26px;color:var(--ink)}
+.sp-text.q{font-size:24px}
+.rec-btn{width:96px;height:96px;border-radius:50%;border:0;background:var(--red);color:#fff;cursor:pointer;display:grid;place-items:center;margin:0 auto;box-shadow:0 8px 24px rgba(229,56,59,.35)}
+.rec-btn.idle{background:var(--blue);box-shadow:0 8px 24px rgba(0,91,234,.3)}
+.rec-btn:disabled{opacity:.45;cursor:not-allowed}
+.rec-btn.pulse{animation:pulse 1.2s infinite}
+@keyframes pulse{0%{box-shadow:0 0 0 0 rgba(229,56,59,.5)}70%{box-shadow:0 0 0 22px rgba(229,56,59,0)}100%{box-shadow:0 0 0 0 rgba(229,56,59,0)}}
+.rec-info{margin-top:14px;font-weight:600;color:var(--ink-2);min-height:24px}
+.rec-info .t{color:var(--red);font-variant-numeric:tabular-nums}
+.listen-q{margin:6px auto 0}
+
+/* ---------- Modal ---------- */
+.modal-bg{position:fixed;inset:0;background:rgba(11,27,63,.45);display:grid;place-items:center;z-index:100;padding:20px}
+.modal{background:#fff;border-radius:var(--r);padding:26px;max-width:480px;width:100%;box-shadow:var(--shadow)}
+.modal h3{font-size:20px}
+
+/* ---------- Done ---------- */
+.done-ic{width:84px;height:84px;border-radius:50%;background:#E3F6EA;color:var(--green);display:grid;place-items:center;margin:0 auto 16px}
+.spinner{width:42px;height:42px;border:4px solid var(--blue-100);border-top-color:var(--blue);border-radius:50%;animation:sp 0.9s linear infinite;margin:0 auto}
+@keyframes sp{to{transform:rotate(360deg)}}
+.toast{position:fixed;left:50%;bottom:24px;transform:translateX(-50%);background:var(--ink);color:#fff;padding:12px 18px;border-radius:10px;z-index:200;font-size:14px}
+.demo-flag{background:var(--yellow);color:var(--ink);font-size:12px;font-weight:700;padding:3px 8px;border-radius:6px}
+
+@media (max-width:820px){
+  .hero,.check-grid,.form-grid,.read-grid{grid-template-columns:1fr}
+  .read-grid .passage{position:static;max-height:none}
+  .parts{grid-template-columns:1fr 1fr}
+  .match{grid-template-columns:1fr}
+}
+</style>
+</head>
+<body>
+
+<header class="topbar">
+  <div class="topbar-in">
+    <div class="brand"><img id="logo" alt="Vingo English"><span><span class="w1">VINGO</span> <span class="w2">ENGLISH</span></span></div>
+    <span id="demoFlag" class="demo-flag hidden">DEMO – chưa kết nối máy chủ</span>
+    <div class="top-right">
+      <span id="candName" class="cand"></span>
+      <div id="timer" class="timer hidden" title="Thời gian còn lại phần thi viết">
+        <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2.5M9 2h6"/></svg>
+        <span id="timerTxt">60:00</span>
+      </div>
+    </div>
+  </div>
+</header>
+
+<main class="wrap" id="app"></main>
+<div id="modalRoot"></div>
+
+<script>
+/* ======================================================================
+   1. CẤU HÌNH – chỉ cần sửa dòng API_URL sau khi deploy Apps Script
+   ====================================================================== */
+const API_URL = "https://script.google.com/macros/s/AKfycbxyfvPPLiCLLXXamO6H7rQfAYCxjhusugqnTJgmV_M7AeyR2xDiGYwuA4bkh25KKfmm2g/exec";  // URL web app Apps Script
+const API_TOKEN = "vingo-2026"; // phải trùng với API_TOKEN trong Code.gs
+const WRITTEN_MINUTES = 50;  // thời gian phần Listening → Writing
+const SPEAK_MINUTES = 10;    // thời gian phần Speaking (tổng bài = 60 phút)
+const MAX_PLAYS = 2;         // số lần nghe mỗi audio
+const T1_MAX_SEC = 15;       // giới hạn ghi âm mỗi mục đọc (Speaking task 1)
+const T2_MAX_SEC = 40;       // giới hạn ghi âm mỗi câu trả lời (Speaking task 2)
+const AUDIO_FILES = { l1:"audio/listening1.mp3", l2:"audio/listening2.mp3", l3:"audio/listening3.mp3" };
+const STORE_KEY = "vingo_placement_v1";
+const DEMO = !API_URL;
+
+const LOGO = "data:image/png;base64,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";
+
+/* ======================================================================
+   2. NỘI DUNG ĐỀ (không chứa đáp án – đáp án nằm ở máy chủ Code.gs)
+   ====================================================================== */
+const TEST = {
+  listening: {
+    t1: { dialogs: [
+      { no:1, lines:[ "A: Excuse me. Where is the post office?",
+                      "B: The post office? [[1]] for two blocks and then turn left. It’s [[2]]",
+                      "A: Up this street two blocks and left?", "B: That’s correct." ] },
+      { no:2, lines:[ "A: Can I help you?", "B: I’m looking for the [[3]]",
+                      "A: Well, take a right at the first [[4]], and it’s on your right.", "B: Okay, thanks." ] },
+      { no:3, lines:[ "A: Can you help me? I’m looking for a hotel.",
+                      "B: Okay. Go straight up two blocks and [[5]] at the light. You’ll see a hotel on your right.",
+                      "A: Thanks.", "B: You’re welcome." ] },
+      { no:4, lines:[ "A: Excuse me. Is there a bookstore around here?",
+                      "B: Yes. Take the first street on the left, [[6]] the next intersection. You’ll see the bookstore on the right. You can’t miss it." ] }
+    ]},
+    t2: { cities:["Tokyo","Mexico City","Taipei","Dallas","Beijing","Los Angeles"] },
+    t3: { items:[
+      "Maria has brown, curly hair.",
+      "Maria and Catherine have the same color eyes.",
+      "Maria’s face is longer than Catherine’s.",
+      "Catherine’s nose and mouth look like Maria’s.",
+      "Catherine is taller than Maria.",
+      "Maria isn’t as outgoing as Catherine.",
+      "Catherine is older than Maria.",
+      "Both Catherine and Maria are independent." ] }
+  },
+  vocab: {
+    t1: { words:["pen","book","dance","flower","a mountain","enormous","healthy","dentist","calendar","dictionary"],
+          defs:[ ["a","extremely large"],
+                 ["b","the part of a plant that is often brightly coloured and has a pleasant smell"],
+                 ["c","move the body and feet to music"],
+                 ["d","a person whose job is treating people's teeth"],
+                 ["e","a written text that can be published in printed or electronic form"],
+                 ["f","a book that contains a list of words and explains their meanings"],
+                 ["g","a long, thin object used for writing or drawing with ink"],
+                 ["h","strong and well"],
+                 ["l","a printed table showing all the days, weeks, and months of the year"],
+                 ["m","a very high hill, often with rocks near the top"] ] },
+    t2: [
+      { s:"I am ___________. I failed the competition.", o:["happy","wrong","disappointed","excited"] },
+      { s:"Are you ____________?", o:["a waitress","waitresses","waitress","a waitresses"] },
+      { s:"Ana: I can’t get up in the morning.<br>James: __________________", o:["You should get stressed","No problem","You should go to bed earlier","In the afternoon"] },
+      { s:"_______________? – He is very kind and quite shy.", o:["Who is he?","What does he look like?","What is he like?","What does he like doing?"] },
+      { s:"He always gives money and food to homeless people. He’s so _____________.", o:["shy","friendly","generous","humorous"] }
+    ]
+  },
+  grammar: {
+    t1: [
+      { s:"I play tennis twice ____________ week.", o:["the","in the","a","for a"] },
+      { s:"Mount Everest is the __________ mountain in the world.", o:["high","most high","highest","higher"] },
+      { s:"There isn’t __________ bread left.", o:["some","many","much","lots"] },
+      { s:"When we lived near the ocean, our family _________ to the beach every summer.", o:["were going","used to go","did go","didn’t went"] },
+      { s:"___________ is the rent every month?", o:["How many","How much","How does","How do"] },
+      { s:"A: Where are you ______________ for your vacation?<br>B: We’ll probably go to Athens.", o:["will go","going to","going to go","to go"] },
+      { s:"I might go _____________ with Peter.", o:["to","for a drink","for drink","to a drink"] },
+      { s:"How many hours did you spend __________?", o:["travelling","travel","to travel","traveled"] },
+      { s:"Mary __________ (sleep) for eleven hours.", o:["sleep","has slept","have slept","sleeps"] },
+      { s:"Would you like __________ (have) some milk?", o:["to have","having","to having","have"] }
+    ],
+    t2: [
+      { a:"Every Monday, Sally", b:"(drive) her kids to football practice." },
+      { a:"I'm sorry I can't hear what you are saying because everybody", b:"(talk) so loudly." },
+      { a:"Peter", b:"(paint) his house yesterday." },
+      { a:"Jim: Do you want to come over for dinner tonight?<br>Denise: Oh, I'm sorry. My family", b:"(have) a reunion party tonight." },
+      { a:"I hate living in Seattle because it", b:"(rain, always)." }
+    ]
+  },
+  reading: {
+    t1: {
+      passage: "In many countries there are four seasons in the year. These are called spring, summer, autumn and winter. [[1]] season is about three months long and then a new season comes. In the north of our planet, summer usually [[2]] in June. It is the warmest time of the year and it sometimes does not get dark [[3]] 10 o’clock at night. In September it gets colder and the trees [[4]] their leaves. This season is called autumn. Winter comes in December [[5]] it is usually very cold and a lot of countries have snow. On some winter days, it gets dark at about 4 o’clock [[6]] the afternoon so the days are very [[7]] and the nights are long. In March, the weather gets warmer and plants and flowers start to grow [[8]]. This season is called spring. In the south of the planet the countries have the [[9]] seasons, but they happen at different times [[10]] the year. They have summer in December and winter in June.",
+      opts: [ ["Each","Other","All"],["began","begins","beginning"],["until","for","during"],["lost","loses","lose"],["which","when","where"],
+              ["at","in","on"],["shorter","short","shortest"],["after","again","already"],["both","same","more"],["of","up","with"] ]
+    },
+    t2: {
+      passage: "Dolphins are mammals, not fish. They are warm-blooded like human beings, and give birth to one baby at a time, which are called calves. At birth, a bottle-nose dolphin calf is about 90-130 cm long and will grow to approximately 4 meters, living up to 40 years.<br><br>They are highly sociable animals, living in groups called pods. These pods are fairly fluid, and dolphins will often interact with several different pods at once. They carry their young inside their womb for about 12 months. The baby is born tail first, and its mother will feed the calf for up to 2 years. However, the calf will stay with its mother for between 3 to 6 years, during which time it will learn all about feeding techniques, social interaction and group hunting.",
+      qs: [
+        { s:"What are dolphins?", o:["Dolphins are fish","Dolphins are reptiles","Dolphins are felines","Dolphins are mammals"] },
+        { s:"What is the group of dolphins called?", o:["a calf","a herd","a school","a pod"] },
+        { s:"How long does a dolphin calf stay with its mother?", o:["2 years","40 years","3-6 years","30 years"] },
+        { s:"What is a baby dolphin called?", o:["a pod","a calf","a fish","a baby"] },
+        { s:"What kind of blood does a dolphin have?", o:["warm blood","white blood","salt-water blood","cold blood"] }
+      ]
+    }
+  },
+  writing: { prompt:"Write a paragraph (about 150 words) to describe your favorite place in a town/city." },
+  speaking: {
+    t1: [ "Challenge","Composer","Thanks for letting me know.",
+          "Every morning he gets up early, brushes his teeth, washes his face, and eats breakfast.",
+          "It was very warm all week last spring.",
+          "Her thirty-third birthday is on the third Thursday of this month.",
+          "Would you take our picture?","I might not start to cook soon.",
+          "He makes a ton of money every month.","Don’t keep the TV near me." ],
+    intro: [ "What do you do?","Where are you from?","What’s your school or major?",
+             ["What do you often do in the morning?","What do you often do in the evening?"],
+             ["What do you eat for breakfast?","What do you eat for dinner?"] ],
+    topics: {
+      "Types of Transport":["How do you go to school or work?","If you have a trip to Phu Quoc, which type of transport would you use? Why?"],
+      "Birthday Party":["Is it important to celebrate birthdays?","What is the party that you remember most?"],
+      "Weekend Activities":["Where do you often go on weekends?","What did you do last weekend? What was it like?"],
+      "The Internet":["How long do you surf the Internet every day?","What do you do on the Internet?","What’s your favorite website?"],
+      "TVs and Mobiles":["What is your favorite channel?","Do you watch TV before going to school?","Do you think you watch too much TV?"],
+      "Holiday Activities":["Where do you often go on holiday?","What do you often do there?"],
+      "Natural Places":["Can you name some mountains, islands or lakes in Vietnam?","What natural places do Vietnamese people often visit?","Do you like going to natural places?"],
+      "Animals":["What animals do you like? Why?","Are you scared of snakes, lions or tigers?"],
+      "Life in the City and Countryside":["Do you like living in the city or the countryside? Why?","Do you think there are more job opportunities in the countryside?"]
+    }
+  }
+};
+
+const SECTIONS = [
+  { id:"listening", name:"Listening", vi:"Nghe", pts:20, total:26 },
+  { id:"vocab",     name:"Vocabulary", vi:"Từ vựng", pts:15, total:15 },
+  { id:"grammar",   name:"Grammar", vi:"Ngữ pháp", pts:15, total:15 },
+  { id:"reading",   name:"Reading", vi:"Đọc", pts:20, total:15 },
+  { id:"writing",   name:"Writing", vi:"Viết", pts:10, total:1 }
+];
+const GOALS = ["Giao tiếp tự tin","Phục vụ công việc","Chuẩn đầu ra đại học","Thi chứng chỉ (IELTS/TOEIC…)","Du học / định cư","Mất gốc, muốn học lại từ đầu","Khác"];
+const WORRIES = ["Mất gốc, không biết bắt đầu từ đâu","Nghe không hiểu","Ngại nói, phản xạ chậm","Phát âm","Từ vựng ít","Ngữ pháp","Không có thời gian","Sợ không theo kịp lớp","Khác"];
+
+/* ======================================================================
+   3. STATE (lưu localStorage để tải lại trang không mất bài)
+   ====================================================================== */
+let S = load() || null;
+function blank(){ return { sid:"", phase:"welcome", info:{}, answers:{}, plays:{l1:0,l2:0,l3:0},
+  startedAt:0, writtenAt:0, tab:"listening", sp:{ task:1, idx:0, done:{} , t2:[] }, pending:{} }; }
+function load(){ try{ return JSON.parse(localStorage.getItem(STORE_KEY)); }catch(e){ return null; } }
+function save(){ try{ localStorage.setItem(STORE_KEY, JSON.stringify(S)); }catch(e){} }
+function clearAll(){ localStorage.removeItem(STORE_KEY); S = blank(); }
+
+/* ======================================================================
+   4. API
+   ====================================================================== */
+async function api(action, payload, tries=3){
+  if (DEMO){ await sleep(400); return { ok:true, demo:true, mode:"PILOT" }; }
+  let lastErr;
+  for (let i=0;i<tries;i++){
+    try{
+      const res = await fetch(API_URL, { method:"POST", body: JSON.stringify({ action, token:API_TOKEN, ...payload }) });
+      const j = await res.json();
+      if (!j.ok) throw new Error(j.error||"Lỗi máy chủ");
+      return j;
+    }catch(e){ lastErr=e; await sleep(1200*(i+1)); }
+  }
+  throw lastErr;
+}
+const sleep = ms => new Promise(r=>setTimeout(r,ms));
+function toast(msg, ms=2600){ const t=document.createElement("div"); t.className="toast"; t.textContent=msg; document.body.appendChild(t); setTimeout(()=>t.remove(),ms); }
+const $ = (s,r=document)=>r.querySelector(s);
+const esc = s => String(s).replace(/[&<>"]/g,c=>({"&":"&amp;","<":"&lt;",">":"&gt;",'"':"&quot;"}[c]));
+
+/* ======================================================================
+   5. RENDER CHÍNH
+   ====================================================================== */
+function render(){
+  $("#logo").src = LOGO;
+  $("#demoFlag").classList.toggle("hidden", !DEMO);
+  $("#candName").textContent = S && S.info && S.info.name ? S.info.name : "";
+  const ph = S.phase;
+  $("#timer").classList.toggle("hidden", !(ph==="written" || ph==="speaking"));
+  if (ph==="welcome") return renderWelcome();
+  if (ph==="form") return renderForm();
+  if (ph==="check") return renderCheck();
+  if (ph==="written") return renderWritten();
+  if (ph==="speakIntro") return renderSpeakIntro();
+  if (ph==="speaking") return renderSpeaking();
+  if (ph==="finishing") return renderFinishing();
+  if (ph==="done") return renderDone();
+}
+
+/* ---------- Welcome ---------- */
+function renderWelcome(){
+  const resume = S.sid && S.phase==="welcome" && S.info && S.info.name;
+  $("#app").innerHTML = `
+  <div class="card">
+    <div class="hero">
+      <div>
+        <span class="pill">Bài kiểm tra đầu vào · Tiếng Anh Giao tiếp</span>
+        <h1 style="margin-top:12px">Chào mừng bạn đến với Vingo English!</h1>
+        <p class="lead">Bài kiểm tra này giúp Vingo hiểu đúng năng lực tiếng Anh hiện tại của bạn, từ đó xếp bạn vào lớp học phù hợp nhất. Vì vậy, bạn hãy làm bài một cách trung thực và tự nhiên; nếu gặp câu chưa biết, bạn cứ bình tĩnh bỏ qua và chuyển sang câu tiếp theo.</p>
+        <div class="parts">
+          <div class="part"><b>Listening</b><span>20 điểm · 3 phần</span></div>
+          <div class="part"><b>Vocabulary</b><span>15 điểm · 2 phần</span></div>
+          <div class="part"><b>Grammar</b><span>15 điểm · 2 phần</span></div>
+          <div class="part"><b>Reading</b><span>20 điểm · 2 phần</span></div>
+          <div class="part"><b>Writing</b><span>10 điểm · 1 đoạn văn</span></div>
+          <div class="part"><b>Speaking</b><span>20 điểm · ghi âm</span></div>
+        </div>
+        <h3>Lưu ý trước khi làm bài</h3>
+        <ul class="rules">
+          <li>Bài kiểm tra kéo dài <b>${WRITTEN_MINUTES+SPEAK_MINUTES} phút</b>, trong đó <b>${WRITTEN_MINUTES} phút</b> dành cho Listening, Vocabulary, Grammar, Reading và Writing. Khi hết giờ, hệ thống sẽ tự động nộp phần này.</li>
+          <li>Mỗi đoạn audio chỉ được nghe <b>${MAX_PLAYS} lần</b> và không thể tua hay tạm dừng, vì vậy bạn nên đọc trước câu hỏi rồi mới bấm nghe.</li>
+          <li>Ngay sau đó là <b>${SPEAK_MINUTES} phút Speaking</b>: bạn sẽ ghi âm trực tiếp phần đọc to và phần trả lời câu hỏi.</li>
+          <li>Sau khi bạn hoàn thành, kết quả cùng nhận xét chi tiết sẽ được gửi về email mà bạn đăng ký.</li>
+        </ul>
+      </div>
+      <div class="hero-art">
+        <div style="font-weight:600;opacity:.9">Tổng thời gian làm bài</div>
+        <div class="big" style="margin:8px 0 4px">${WRITTEN_MINUTES+SPEAK_MINUTES} phút</div>
+        <div style="opacity:.9;max-width:240px">${WRITTEN_MINUTES} phút cho 5 phần thi viết và ${SPEAK_MINUTES} phút Speaking</div>
+        <div style="height:120px"></div>
+      </div>
+    </div>
+    <div class="row end" style="margin-top:22px">
+      <button class="btn btn-primary btn-lg" onclick="go('form')">Bắt đầu →</button>
+    </div>
+  </div>`;
+}
+
+/* ---------- Form ---------- */
+function renderForm(){
+  const i = S.info||{};
+  const g = i.goals||[], w = i.worries||[];
+  $("#app").innerHTML = `
+  <div class="card narrow">
+    <h2>Thông tin của bạn</h2>
+    <p class="muted" style="margin-top:0">Bạn vui lòng điền chính xác các thông tin dưới đây, đặc biệt là địa chỉ <b>email</b>, vì kết quả bài kiểm tra sẽ được gửi về địa chỉ này.</p>
+    <div class="form-grid" style="margin-top:16px">
+      <div class="field full"><label class="lb">Họ và tên <span class="req">*</span></label><input id="f_name" type="text" value="${esc(i.name||"")}" placeholder="Nguyễn Văn A"><div class="err" id="e_name"></div></div>
+      <div class="field"><label class="lb">Số điện thoại <span class="req">*</span></label><input id="f_phone" type="tel" value="${esc(i.phone||"")}" placeholder="09xx xxx xxx"><div class="err" id="e_phone"></div></div>
+      <div class="field"><label class="lb">Email <span class="req">*</span></label><input id="f_email" type="email" value="${esc(i.email||"")}" placeholder="ban@gmail.com" autocomplete="off"><div class="err" id="e_email"></div></div>
+      <div class="field full"><label class="lb">Nhập lại email <span class="req">*</span></label><input id="f_email2" type="email" value="${esc(i.email||"")}" placeholder="Nhập lại để tránh gõ nhầm" autocomplete="off" onpaste="return false"><div class="err" id="e_email2"></div></div>
+      <div class="field full"><label class="lb">Mục tiêu học tiếng Anh của bạn <span class="req">*</span> <span class="muted">(chọn 1 hoặc nhiều)</span></label>
+        <div class="chips" id="c_goals">${GOALS.map(x=>`<span class="chip ${g.includes(x)?"on":""}" data-v="${esc(x)}">${esc(x)}</span>`).join("")}</div>
+        <input id="f_goal_txt" type="text" value="${esc(i.goalText||"")}" placeholder="Mô tả thêm (VD: cần IELTS 4.5 để ra trường vào tháng 6/2027)" style="margin-top:8px"><div class="err" id="e_goals"></div></div>
+      <div class="field full"><label class="lb">Điều bạn lo lắng nhất khi học tiếng Anh <span class="req">*</span></label>
+        <div class="chips" id="c_worries">${WORRIES.map(x=>`<span class="chip ${w.includes(x)?"on":""}" data-v="${esc(x)}">${esc(x)}</span>`).join("")}</div>
+        <input id="f_worry_txt" type="text" value="${esc(i.worryText||"")}" placeholder="Chia sẻ thêm nếu có" style="margin-top:8px"><div class="err" id="e_worries"></div></div>
+      <div class="field"><label class="lb">Tư vấn viên phụ trách <span class="req">*</span></label><input id="f_sale" type="text" value="${esc(i.sale||"")}" placeholder="Tên tư vấn viên"><div class="err" id="e_sale"></div></div>
+      <div class="field"><label class="lb">Cơ sở</label><input id="f_campus" type="text" value="${esc(i.campus||"Chùa Bộc")}"></div>
+      <div class="field full"><label class="consent"><input type="checkbox" id="f_consent" ${i.consent?"checked":""}> <span>Tôi đồng ý để Vingo English lưu trữ thông tin, bài làm và bản ghi âm của tôi nhằm chấm điểm, tư vấn lộ trình học và gửi kết quả. Bài làm có sử dụng công cụ chấm tự động để hỗ trợ đánh giá.</span></label><div class="err" id="e_consent"></div></div>
+    </div>
+    <div class="row" style="margin-top:22px">
+      <button class="btn btn-ghost" onclick="go('welcome')">← Quay lại</button><div class="spacer"></div>
+      <button class="btn btn-primary btn-lg" id="btnForm" onclick="submitForm()">Tiếp tục: kiểm tra thiết bị →</button>
+    </div>
+  </div>`;
+  document.querySelectorAll(".chip").forEach(c=>c.onclick=()=>c.classList.toggle("on"));
+}
+function chipVals(id){ return [...document.querySelectorAll(`#${id} .chip.on`)].map(c=>c.dataset.v); }
+async function submitForm(){
+  const v = id => $(id).value.trim();
+  const info = { name:v("#f_name"), phone:v("#f_phone").replace(/[\s.\-]/g,""), email:v("#f_email").toLowerCase(), email2:v("#f_email2").toLowerCase(),
+    goals:chipVals("c_goals"), goalText:v("#f_goal_txt"), worries:chipVals("c_worries"), worryText:v("#f_worry_txt"),
+    sale:v("#f_sale"), campus:v("#f_campus"), consent:$("#f_consent").checked };
+  const E = {};
+  if (info.name.length<3) E.name="Vui lòng nhập họ và tên đầy đủ.";
+  if (!/^(\+?84|0)(3|5|7|8|9)\d{8}$/.test(info.phone)) E.phone="Số điện thoại chưa đúng định dạng (10 số, VD: 0912345678).";
+  if (!/^[^\s@]+@[^\s@]+\.[a-z]{2,}$/i.test(info.email)) E.email="Email chưa đúng định dạng.";
+  else if (["gmial.com","gmai.com","gamil.com","gmail.co","gmail.con","gmal.com","gmali.com","gnail.com","gmail.cm","gmail.om","yahoo.co","yaho.com","hotmial.com"].includes(info.email.split("@")[1])) E.email="Có vẻ tên miền email bị gõ nhầm – vui lòng kiểm tra lại.";
+  if (info.email!==info.email2) E.email2="Hai email chưa khớp nhau.";
+  if (!info.goals.length) E.goals="Chọn ít nhất 1 mục tiêu.";
+  if (!info.worries.length) E.worries="Chọn ít nhất 1 điều bạn lo lắng.";
+  if (!info.sale) E.sale="Vui lòng nhập tên tư vấn viên.";
+  if (!info.consent) E.consent="Bạn cần đồng ý để tiếp tục.";
+  ["name","phone","email","email2","goals","worries","sale","consent"].forEach(k=>$("#e_"+k).textContent=E[k]||"");
+  if (Object.keys(E).length) return;
+  delete info.email2;
+  S.info = info;
+  if (!S.sid) S.sid = "VG" + Date.now().toString(36).toUpperCase() + Math.random().toString(36).slice(2,5).toUpperCase();
+  save();
+  $("#btnForm").disabled = true; $("#btnForm").textContent = "Đang lưu…";
+  try{ await api("start", { sid:S.sid, info:S.info, ua:navigator.userAgent }); }
+  catch(e){ $("#btnForm").disabled=false; $("#btnForm").textContent="Thử lại"; return toast("Không kết nối được máy chủ. Kiểm tra mạng và thử lại."); }
+  go("check");
+}
+
+/* ---------- Device check ---------- */
+let MIC = null;               // { stream, ctx, src, analyser }
+let checkState = { spk:false, mic:false };
+function renderCheck(){
+  $("#app").innerHTML = `
+  <div class="card narrow">
+    <h2>Kiểm tra loa & micro</h2>
+    <p class="muted" style="margin-top:0">Bước này giúp đảm bảo bạn nghe rõ các đoạn audio, đồng thời giọng nói của bạn được ghi âm đầy đủ. Bạn vui lòng hoàn thành cả 2 mục dưới đây trước khi bắt đầu.</p>
+    <div class="check-grid">
+      <div class="check" id="ck_spk">
+        <h3>1. Loa</h3>
+        <p class="muted" style="margin:0">Bạn bấm phát âm thanh thử, sau đó điều chỉnh âm lượng sao cho nghe rõ và thoải mái.</p>
+        <div class="row" style="margin-top:12px"><button class="btn btn-ghost" onclick="testSpeaker()">▶ Phát âm thanh thử</button></div>
+        <label class="row" style="margin-top:12px;gap:8px;font-size:14px"><input type="checkbox" id="spkOk" onchange="checkState.spk=this.checked;updCheck()"> Tôi nghe rõ</label>
+      </div>
+      <div class="check" id="ck_mic">
+        <h3>2. Micro</h3>
+        <p class="muted" style="margin:0">Bạn bấm thu thử và nói một câu như "Hello, my name is…", sau đó nghe lại để kiểm tra.</p>
+        <div class="meter"><i id="micLv"></i></div>
+        <div class="row"><button class="btn btn-ghost" id="btnMic" onclick="testMic()">🎙 Thu thử 4 giây</button></div>
+        <div class="st" id="micSt"></div>
+      </div>
+    </div>
+    <div class="row" style="margin-top:22px">
+      <div class="spacer"></div>
+      <button class="btn btn-primary btn-lg" id="btnStart" disabled onclick="startWritten()">Bắt đầu làm bài (${WRITTEN_MINUTES} phút) →</button>
+    </div>
+  </div>`;
+  updCheck();
+}
+function updCheck(){
+  $("#ck_spk") && $("#ck_spk").classList.toggle("ok", checkState.spk);
+  $("#ck_mic") && $("#ck_mic").classList.toggle("ok", checkState.mic);
+  $("#btnStart") && ($("#btnStart").disabled = !(checkState.spk && checkState.mic));
+}
+function testSpeaker(){ speak("Hello! Welcome to Vingo English. If you can hear this clearly, you are ready."); }
+async function ensureMic(){
+  if (MIC) return MIC;
+  const stream = await navigator.mediaDevices.getUserMedia({ audio:{ echoCancellation:true, noiseSuppression:true, channelCount:1 } });
+  const ctx = new (window.AudioContext||window.webkitAudioContext)();
+  const src = ctx.createMediaStreamSource(stream);
+  const analyser = ctx.createAnalyser(); analyser.fftSize = 1024; src.connect(analyser);
+  MIC = { stream, ctx, src, analyser };
+  meterLoop();
+  return MIC;
+}
+function meterLoop(){
+  if (!MIC) return;
+  const a = new Uint8Array(MIC.analyser.fftSize);
+  const tick = () => {
+    if (!MIC) return;
+    MIC.analyser.getByteTimeDomainData(a);
+    let m=0; for (const v of a) m=Math.max(m,Math.abs(v-128));
+    const pct = Math.min(100, m/128*220);
+    document.querySelectorAll(".lv").forEach(el=>el.style.width=pct+"%");
+    const lv=$("#micLv"); if (lv) lv.style.width=pct+"%";
+    requestAnimationFrame(tick);
+  }; tick();
+}
+async function testMic(){
+  const st=$("#micSt"), b=$("#btnMic");
+  try{ await ensureMic(); }catch(e){
+    st.innerHTML = `<span style="color:var(--red)">Không mở được micro. Bấm biểu tượng 🔒 trên thanh địa chỉ → cho phép Micro, rồi tải lại trang.</span>`; return; }
+  b.disabled = true; st.textContent = "Đang thu… hãy nói gì đó";
+  const rec = startRecording(); await sleep(4000); const r = await rec.stop();
+  st.textContent = "Đang phát lại…";
+  const au = new Audio(r.url); await au.play().catch(()=>{});
+  au.onended = () => {
+    b.disabled=false;
+    st.innerHTML = `Bạn có nghe rõ giọng mình không? <label style="margin-left:8px"><input type="checkbox" onchange="checkState.mic=this.checked;updCheck()"> Có, nghe rõ</label>`;
+  };
+}
+
+/* ---------- WAV recorder (16 kHz mono – định dạng AI chấm tốt nhất) ---------- */
+function startRecording(){
+  const ctx = MIC.ctx; if (ctx.state==="suspended") ctx.resume();
+  const proc = ctx.createScriptProcessor(4096,1,1);
+  const chunks = []; let peak = 0;
+  proc.onaudioprocess = e => { const d=e.inputBuffer.getChannelData(0); chunks.push(new Float32Array(d)); for (let i=0;i<d.length;i+=64) peak=Math.max(peak,Math.abs(d[i])); };
+  MIC.src.connect(proc); proc.connect(ctx.destination);
+  const t0 = Date.now();
+  return { stop: async () => {
+    proc.disconnect(); try{ MIC.src.disconnect(proc); }catch(e){}
+    const len = chunks.reduce((s,c)=>s+c.length,0), all = new Float32Array(len); let o=0; for (const c of chunks){ all.set(c,o); o+=c.length; }
+    const wav = encodeWav(downsample(all, ctx.sampleRate, 16000), 16000);
+    return { blob:wav, url:URL.createObjectURL(wav), sec:(Date.now()-t0)/1000, peak };
+  }};
+}
+function downsample(buf, from, to){
+  if (to>=from) return buf;
+  const ratio = from/to, n = Math.round(buf.length/ratio), out = new Float32Array(n);
+  for (let i=0;i<n;i++){ const s=Math.floor(i*ratio), e=Math.min(buf.length,Math.floor((i+1)*ratio)); let sum=0; for (let j=s;j<e;j++) sum+=buf[j]; out[i]=sum/Math.max(1,e-s); }
+  return out;
+}
+function encodeWav(samples, rate){
+  const b = new ArrayBuffer(44+samples.length*2), v = new DataView(b);
+  const w = (o,s)=>{ for (let i=0;i<s.length;i++) v.setUint8(o+i,s.charCodeAt(i)); };
+  w(0,"RIFF"); v.setUint32(4,36+samples.length*2,true); w(8,"WAVE"); w(12,"fmt "); v.setUint32(16,16,true); v.setUint16(20,1,true); v.setUint16(22,1,true);
+  v.setUint32(24,rate,true); v.setUint32(28,rate*2,true); v.setUint16(32,2,true); v.setUint16(34,16,true); w(36,"data"); v.setUint32(40,samples.length*2,true);
+  let o=44; for (const s of samples){ const x=Math.max(-1,Math.min(1,s)); v.setInt16(o, x<0?x*0x8000:x*0x7FFF, true); o+=2; }
+  return new Blob([v],{type:"audio/wav"});
+}
+const blobToB64 = blob => new Promise(r=>{ const fr=new FileReader(); fr.onload=()=>r(fr.result.split(",")[1]); fr.readAsDataURL(blob); });
+
+/* ---------- Text-to-speech (đọc câu hỏi Speaking) ---------- */
+function pickVoice(){
+  const vs = speechSynthesis.getVoices();
+  return vs.find(v=>/Google US English/i.test(v.name)) || vs.find(v=>/en-US/i.test(v.lang) && /Samantha|Aria|Jenny|Zira|Natural/i.test(v.name)) || vs.find(v=>/^en(-|_)US/i.test(v.lang)) || vs.find(v=>/^en/i.test(v.lang));
+}
+function speak(text){
+  return new Promise(res=>{
+    try{
+      speechSynthesis.cancel();
+      const u = new SpeechSynthesisUtterance(text); const v = pickVoice(); if (v) u.voice=v;
+      u.lang="en-US"; u.rate=0.88; u.onend=res; u.onerror=res; speechSynthesis.speak(u);
+      setTimeout(res, 15000);
+    }catch(e){ res(); }
+  });
+}
+if ("speechSynthesis" in window) speechSynthesis.onvoiceschanged = ()=>{};
+
+/* ======================================================================
+   6. PHẦN THI VIẾT
+   ====================================================================== */
+let timerInt = null;
+async function startWritten(){
+  S.startedAt = Date.now(); S.phase="written"; S.tab="listening"; save();
+  api("event",{ sid:S.sid, ev:"started" }).catch(()=>{});
+  render();
+}
+function A(k){ return S.answers[k]; }
+function setA(k,v){ S.answers[k]=v; save(); updTabs(); }
+
+function renderWritten(){
+  startTimer();
+  $("#app").innerHTML = `
+    <div class="tabs" id="tabs"></div>
+    <div class="card" id="secBody"></div>`;
+  renderTab();
+}
+function updTabs(){
+  const el=$("#tabs"); if (!el) return;
+  el.innerHTML = SECTIONS.map(s=>{
+    const n = answeredCount(s.id);
+    return `<div class="tab ${S.tab===s.id?"on":""} ${n>=s.total?"done":""}" onclick="switchTab('${s.id}')">${s.name} <span class="cnt">${s.id==="writing"?(wordCount(A("writing")||"")+" từ"):(n+"/"+s.total)}</span></div>`;
+  }).join("") + `<div class="spacer"></div><button class="btn btn-accent" onclick="confirmSubmitWritten()">Nộp phần thi viết ✓</button>`;
+}
+function answeredCount(id){
+  const keys = Object.keys(S.answers).filter(k=>k.startsWith(id+".") && String(S.answers[k]).trim()!=="");
+  if (id==="writing") return (A("writing")||"").trim()?1:0;
+  return keys.length;
+}
+function switchTab(id){ S.tab=id; save(); renderTab(); window.scrollTo({top:0,behavior:"smooth"}); }
+function renderTab(){
+  updTabs();
+  const b=$("#secBody"), id=S.tab, sec=SECTIONS.find(s=>s.id===id), idx=SECTIONS.indexOf(sec);
+  let h = `<div class="sec-head"><h2>Section ${idx+1}. ${sec.name.toUpperCase()}</h2><span class="pts">(${sec.pts} points)</span></div>`;
+  if (id==="listening") h+=htmlListening();
+  if (id==="vocab") h+=htmlVocab();
+  if (id==="grammar") h+=htmlGrammar();
+  if (id==="reading") h+=htmlReading();
+  if (id==="writing") h+=htmlWriting();
+  h += `<div class="nav-foot">
+    ${idx>0?`<button class="btn btn-ghost" onclick="switchTab('${SECTIONS[idx-1].id}')">← ${SECTIONS[idx-1].name}</button>`:"<span></span>"}
+    ${idx<SECTIONS.length-1?`<button class="btn btn-primary" onclick="switchTab('${SECTIONS[idx+1].id}')">${SECTIONS[idx+1].name} →</button>`:`<button class="btn btn-accent" onclick="confirmSubmitWritten()">Nộp phần thi viết ✓</button>`}
+  </div>`;
+  b.innerHTML = h;
+  bindInputs(b);
+  if (id==="listening") bindPlayers();
+  if (id==="writing") bindWriting();
+}
+function bindInputs(root){
+  root.querySelectorAll("[data-k]").forEach(el=>{
+    if (el.classList.contains("opt")){ el.onclick=()=>{ const k=el.dataset.k; setA(k, el.dataset.v);
+      root.querySelectorAll(`.opt[data-k="${k}"]`).forEach(o=>o.classList.toggle("on", o===el)); }; }
+    else { el.oninput = () => setA(el.dataset.k, el.value); }
+  });
+}
+const NOFIX = `autocomplete="off" autocorrect="off" autocapitalize="off" spellcheck="false"`;
+function inp(k, ph="", w=""){ return `<input type="text" data-k="${k}" value="${esc(A(k)||"")}" placeholder="${ph}" ${NOFIX} ${w?`style="width:${w}"`:""}>`; }
+function mcq(k, opts, letters="ABCD"){
+  return `<div class="opts">${opts.map((o,i)=>`<div class="opt ${A(k)===letters[i]?"on":""}" data-k="${k}" data-v="${letters[i]}"><span class="k">${letters[i]}.</span>${o}</div>`).join("")}</div>`;
+}
+function player(id, label){
+  const left = MAX_PLAYS - (S.plays[id]||0);
+  return `<div class="player" id="pl_${id}">
+    <button class="play-btn" data-au="${id}" ${left<=0?"disabled":""} title="Phát audio">
+      <svg width="20" height="20" viewBox="0 0 24 24" fill="currentColor"><path d="M8 5v14l11-7z"/></svg></button>
+    <div style="flex:1"><div style="font-weight:600;font-size:14px;margin-bottom:6px">${label}</div><div class="prog"><i id="pg_${id}"></i></div></div>
+    <div class="plays" id="pc_${id}">${left>0?`Còn <b>${left}</b>/${MAX_PLAYS} lượt nghe`:`Đã hết lượt nghe`}</div>
+  </div>`;
+}
+
+/* --- Listening --- */
+function htmlListening(){
+  const L=TEST.listening; let h="";
+  h += `<div class="task"><div class="task-title">Task 1. Fill in the blanks with the word you hear. <small>(6 câu)</small></div>${player("l1","Audio Task 1")}`;
+  L.t1.dialogs.forEach(d=>{
+    h += `<div class="dialog"><div class="no">${d.no}.</div>${d.lines.map(l=>`<p>${l.replace(/\[\[(\d+)\]\]/g,(m,n)=>`<span class="blank"><span class="n">(${n})</span>${inp("listening.t1."+n)}</span>`)}</p>`).join("")}</div>`;
+  });
+  h += `</div><div class="task"><div class="task-title">Task 2. The audio is about the temperature in each city. Write the correct number in the table. <small>(12 ô · nhập số)</small></div>${player("l2","Audio Task 2")}
+    <table class="tbl"><tr><th>#</th><th>CITY</th><th>LOW</th><th>HIGH</th></tr>
+    ${L.t2.cities.map((c,i)=>`<tr><td>${i+1}</td><td>${c}</td><td>${inp(`listening.t2.${i+1}.low`,"°")}</td><td>${inp(`listening.t2.${i+1}.high`,"°")}</td></tr>`).join("")}</table></div>`;
+  h += `<div class="task"><div class="task-title">Task 3. Are the sentences below true or false? <small>(8 câu)</small></div>${player("l3","Audio Task 3")}
+    ${L.t3.items.map((s,i)=>`<div class="q"><div class="stem"><b>${i+1}.</b>${s}</div>${mcq("listening.t3."+(i+1),["True","False"],"AB")}</div>`).join("")}</div>`;
+  return h;
+}
+let AUDIO = { el:null, cur:null };
+function bindPlayers(){
+  document.querySelectorAll("[data-au]").forEach(b=>b.onclick=()=>playAudio(b.dataset.au));
+  refreshPlayers();
+}
+function refreshPlayers(){
+  document.querySelectorAll("[data-au]").forEach(b=>{
+    const id=b.dataset.au, left=MAX_PLAYS-(S.plays[id]||0);
+    b.disabled = left<=0 || !!AUDIO.cur;
+    const pc=$("#pc_"+id); if (pc) pc.innerHTML = AUDIO.cur===id ? `Đang phát… (lượt ${S.plays[id]}/${MAX_PLAYS})` : (left>0?`Còn <b>${left}</b>/${MAX_PLAYS} lượt nghe`:`Đã hết lượt nghe`);
+  });
+}
+function playAudio(id){
+  if (AUDIO.cur) return;
+  if ((S.plays[id]||0) >= MAX_PLAYS) return;
+  S.plays[id] = (S.plays[id]||0)+1; save();          // trừ lượt ngay khi bấm (tải lại trang không được cộng lại)
+  const a = new Audio(AUDIO_FILES[id]); a.preload="auto";
+  AUDIO = { el:a, cur:id };
+  a.ontimeupdate = ()=>{ const p=$("#pg_"+id); if (p && a.duration) p.style.width=(a.currentTime/a.duration*100)+"%"; };
+  a.onended = ()=>{ AUDIO={el:null,cur:null}; const p=$("#pg_"+id); if(p) p.style.width="100%"; refreshPlayers(); api("event",{sid:S.sid,ev:"play_"+id+"_"+S.plays[id]}).catch(()=>{}); };
+  a.onerror = ()=>{ S.plays[id]--; save(); AUDIO={el:null,cur:null}; refreshPlayers(); toast("Không tải được audio. Kiểm tra mạng rồi bấm lại (không bị trừ lượt)."); };
+  a.play().catch(()=>a.onerror());
+  refreshPlayers();
+}
+
+/* --- Vocabulary --- */
+function htmlVocab(){
+  const V=TEST.vocab;
+  let h = `<div class="task"><div class="task-title">Task 1. Match the words to their definitions. <small>(10 câu)</small></div>`;
+  V.t1.words.forEach((w,i)=>{
+    const k="vocab.t1."+(i+1);
+    h += `<div class="match"><div class="w">${i+1}. ${w}</div><select data-k="${k}"><option value="">— chọn định nghĩa —</option>${V.t1.defs.map(d=>`<option value="${d[0]}" ${A(k)===d[0]?"selected":""}>${d[0]}. ${d[1]}</option>`).join("")}</select></div>`;
+  });
+  h += `</div><div class="task"><div class="task-title">Task 2. Choose the best answer. <small>(5 câu)</small></div>`;
+  V.t2.forEach((q,i)=> h += `<div class="q"><div class="stem"><b>${i+1}.</b>${q.s}</div>${mcq("vocab.t2."+(i+1),q.o)}</div>`);
+  return h+`</div>`;
+}
+/* --- Grammar --- */
+function htmlGrammar(){
+  const G=TEST.grammar;
+  let h = `<div class="task"><div class="task-title">Task 1. Choose the best answers. <small>(10 câu)</small></div>`;
+  G.t1.forEach((q,i)=> h += `<div class="q"><div class="stem"><b>${i+1}.</b>${q.s}</div>${mcq("grammar.t1."+(i+1),q.o)}</div>`);
+  h += `</div><div class="task"><div class="task-title">Task 2. Put the verbs in the correct form. <small>(5 câu)</small></div>`;
+  G.t2.forEach((q,i)=> h += `<div class="verb"><b style="color:var(--blue)">${i+1}.</b> <span>${q.a}</span> ${inp("grammar.t2."+(i+1))} <span>${q.b}</span></div>`);
+  return h+`</div>`;
+}
+/* --- Reading --- */
+function htmlReading(){
+  const R=TEST.reading;
+  const p1 = R.t1.passage.replace(/\[\[(\d+)\]\]/g,(m,n)=>`<span class="g">(${n})</span>`);
+  let h = `<div class="task"><div class="task-title">Task 1. Read the text. Choose the right words. <small>(10 câu · 1 điểm/câu)</small></div>
+    <div class="read-grid"><div class="passage">${p1}</div><div>`;
+  R.t1.opts.forEach((o,i)=> h += `<div class="q"><div class="stem"><b>(${i+1})</b></div>${mcq("reading.t1."+(i+1),o,"ABC")}</div>`);
+  h += `</div></div></div><div class="task"><div class="task-title">Task 2. Read the text and choose the best answers. <small>(5 câu · 2 điểm/câu)</small></div>
+    <div class="read-grid"><div class="passage">${R.t2.passage}</div><div>`;
+  R.t2.qs.forEach((q,i)=> h += `<div class="q"><div class="stem"><b>${i+1}.</b>${q.s}</div>${mcq("reading.t2."+(i+1),q.o)}</div>`);
+  return h+`</div></div></div>`;
+}
+/* --- Writing --- */
+function htmlWriting(){
+  return `<div class="task"><div class="passage" style="background:var(--blue-50);border-color:var(--blue)"><b>${TEST.writing.prompt}</b></div>
+    <textarea class="writing" id="wr" data-k="writing" placeholder="Start writing here…" ${NOFIX}>${esc(A("writing")||"")}</textarea>
+    <div class="wc" id="wc"></div>
+    <p class="muted" style="font-size:13px">Lưu ý: để đánh giá đúng năng lực của bạn, phần viết đã tắt chức năng kiểm tra chính tả và không cho phép dán văn bản.</p></div>`;
+}
+function wordCount(t){ return (t.trim().match(/[A-Za-zÀ-ỹ0-9'’-]+/g)||[]).length; }
+function bindWriting(){
+  const t=$("#wr"), wc=$("#wc"); const up=()=>wc.textContent=wordCount(t.value)+" / ~150 từ"; up();
+  t.addEventListener("input",up);
+  t.addEventListener("paste",e=>{e.preventDefault();toast("Phần viết không hỗ trợ dán văn bản, bạn vui lòng tự gõ bài nhé.");});
+  t.addEventListener("drop",e=>e.preventDefault());
+}
+
+/* --- Timer --- */
+function startTimer(){
+  clearInterval(timerInt);
+  const speaking = S.phase==="speaking";
+  const deadline = speaking ? S.spStartedAt + SPEAK_MINUTES*60000 : S.startedAt + WRITTEN_MINUTES*60000;
+  $("#timer").title = speaking ? "Thời gian còn lại phần Speaking" : "Thời gian còn lại phần thi viết";
+  const tick=()=>{
+    const left = deadline - Date.now();
+    if (left<=0){ clearInterval(timerInt); $("#timerTxt").textContent="00:00";
+      if (speaking) return speakTimeUp();
+      toast("Đã hết thời gian làm bài, hệ thống đang tự động nộp phần thi viết.",4000); submitWritten(true); return; }
+    const m=Math.floor(left/60000), s=Math.floor(left%60000/1000);
+    $("#timerTxt").textContent = String(m).padStart(2,"0")+":"+String(s).padStart(2,"0");
+    $("#timer").classList.toggle("warn", left<(speaking?2:5)*60000);
+  };
+  tick(); timerInt=setInterval(tick,1000);
+}
+function confirmSubmitWritten(){
+  const miss = SECTIONS.map(s=>{ const n=answeredCount(s.id); return n<s.total?`<li>${s.name}: còn ${s.total-n} câu chưa làm</li>`:""; }).join("");
+  modal(`<h3>Nộp phần thi viết?</h3>
+    ${miss?`<p>Bạn vẫn còn câu chưa trả lời:</p><ul>${miss}</ul>`:`<p>Bạn đã trả lời tất cả các câu.</p>`}
+    <p class="muted">Sau khi nộp, bạn sẽ <b>không thể quay lại sửa</b> phần thi viết, đồng thời hệ thống chuyển sang phần Speaking.</p>
+    <div class="row end" style="margin-top:16px"><button class="btn btn-ghost" onclick="closeModal()">Làm tiếp</button><button class="btn btn-primary" onclick="closeModal();submitWritten(false)">Nộp bài</button></div>`);
+}
+let submittingWritten=false;
+async function submitWritten(auto){
+  if (submittingWritten || S.phase!=="written") return; submittingWritten=true;
+  clearInterval(timerInt); if (AUDIO.el){ AUDIO.el.pause(); AUDIO={el:null,cur:null}; }
+  $("#app").innerHTML = `<div class="card narrow" style="text-align:center"><div class="spinner"></div><p style="margin-top:16px">Đang lưu bài làm…</p></div>`;
+  const durationMin = Math.round((Date.now()-S.startedAt)/600)/100;
+  try{ await api("written", { sid:S.sid, answers:S.answers, writing:S.answers.writing||"", durationMin, auto:!!auto, plays:S.plays }, 5); }
+  catch(e){ submittingWritten=false; S.phase="written"; save(); modal(`<h3>Chưa lưu được bài</h3><p>Mất kết nối tới máy chủ. Bài làm vẫn được giữ trên máy này.</p><div class="row end"><button class="btn btn-primary" onclick="closeModal();submitWritten(${!!auto})">Thử lại</button></div>`); return; }
+  S.writtenAt = Date.now(); S.phase="speakIntro";
+  S.sp = { task:1, idx:0, done:{}, t2: buildT2() };
+  save(); submittingWritten=false; render();
+}
+
+/* ======================================================================
+   7. SPEAKING
+   ====================================================================== */
+function buildT2(){
+  const pick = x => Array.isArray(x) ? x[Math.floor(Math.random()*x.length)] : x;
+  const intro = TEST.speaking.intro.map(pick);
+  const shuffle = a => a.map(v=>[Math.random(),v]).sort((x,y)=>x[0]-y[0]).map(v=>v[1]);
+  const qs = [ ...shuffle(intro).slice(0,3).map(q=>({topic:"Introduce yourself & Habits", q})) ];
+  shuffle(Object.keys(TEST.speaking.topics)).slice(0,2).forEach(t=>{
+    TEST.speaking.topics[t].slice(0,2).forEach(q=>qs.push({topic:t,q}));
+  });
+  return qs;
+}
+function renderSpeakIntro(){
+  $("#app").innerHTML = `
+  <div class="card narrow">
+    <span class="pill">Section 6 · SPEAKING (20 points)</span>
+    <h2 style="margin-top:12px">Phần thi Nói</h2>
+    <p class="lead">Phần thi viết của bạn đã được lưu. Tiếp theo là <b>${SPEAK_MINUTES} phút Speaking</b> gồm 2 task, và bạn sẽ ghi âm trực tiếp trên máy. Đồng hồ ${SPEAK_MINUTES} phút bắt đầu chạy khi bạn bấm "Bắt đầu Speaking".</p>
+    <div class="check-grid">
+      <div class="check"><h3>Task 1 · Đọc to (10 điểm)</h3><p class="muted" style="margin:0">Bạn lần lượt đọc to 10 từ và câu hiện trên màn hình. Với mỗi mục, bạn bấm nút ghi âm, đọc thật rõ ràng rồi bấm dừng (tối đa ${T1_MAX_SEC} giây).</p></div>
+      <div class="check"><h3>Task 2 · Trả lời câu hỏi (10 điểm)</h3><p class="muted" style="margin:0">Bạn sẽ nghe ${S.sp.t2.length} câu hỏi về bản thân và 2 chủ đề ngẫu nhiên. Bạn hãy cố gắng trả lời thành câu hoàn chỉnh, thêm lý do hoặc ví dụ nếu có thể (tối đa ${T2_MAX_SEC} giây mỗi câu).</p></div>
+    </div>
+    <p class="muted" style="margin-top:16px">Để bản ghi rõ nhất, bạn nên ngồi gần micro và nói to, rõ ràng. Lưu ý rằng mỗi mục chỉ được ghi âm <b>1 lần</b>.</p>
+    <div class="row end" style="margin-top:16px"><button class="btn btn-primary btn-lg" onclick="beginSpeaking()">Bắt đầu Speaking →</button></div>
+  </div>`;
+}
+async function beginSpeaking(){
+  try{ await ensureMic(); }catch(e){ return toast("Chưa mở được micro – hãy cho phép quyền Micro trên trình duyệt.",4000); }
+  if (!S.spStartedAt) S.spStartedAt = Date.now();
+  S.phase="speaking"; save(); render();
+}
+function speakTimeUp(){
+  if (S.phase!=="speaking") return;
+  S.spTimeUp = true; save();
+  toast("Đã hết 10 phút Speaking, hệ thống đang tự động nộp bài.",4000);
+  if (REC && !stopping) return toggleRec(CUR_KEY);   // đang ghi âm → dừng, lưu bản ghi rồi nộp
+  if (!stopping){ S.phase="finishing"; save(); render(); }
+}
+let REC = null, recTimer = null, qPlays = 0, stopping = false, CUR_KEY = "";
+function renderSpeaking(){
+  const sp=S.sp, isT1 = sp.task===1;
+  const list = isT1 ? TEST.speaking.t1 : sp.t2;
+  const total = list.length, i = sp.idx;
+  const item = list[i];
+  const key = (isT1?"t1_":"t2_") + String(i+1).padStart(2,"0");
+  CUR_KEY = key; qPlays = 0;
+  if (!timerInt || $("#timer").title.indexOf("Speaking")<0) startTimer();
+  $("#app").innerHTML = `
+  <div class="sp-wrap">
+    <div class="row"><b>Speaking · Task ${sp.task}</b><span class="muted">— ${isT1?"Read these words and sentences":"Answer the following questions"}</span><div class="spacer"></div><span class="muted">${i+1} / ${total}</span></div>
+    <div class="sp-steps">${list.map((_,j)=>`<i class="${j<i?"done":j===i?"cur":""}"></i>`).join("")}</div>
+    <div class="card sp-card">
+      ${isT1
+        ? `<div class="muted">Đọc to:</div><div class="sp-text">${esc(item)}</div>`
+        : `<div class="muted">Chủ đề: <b>${esc(item.topic)}</b></div>
+           <button class="btn btn-ghost listen-q" id="btnQ" onclick="playQ()" style="margin-top:14px">🔊 Nghe câu hỏi <span id="qLeft">(còn 2 lượt)</span></button>
+           <div class="sp-text q" id="qText">${esc(item.q)}</div>`}
+      <button class="rec-btn idle" id="recBtn" onclick="toggleRec('${key}')" title="Ghi âm">
+        <svg width="36" height="36" viewBox="0 0 24 24" fill="currentColor"><path d="M12 15a3 3 0 0 0 3-3V6a3 3 0 1 0-6 0v6a3 3 0 0 0 3 3zm5-3a5 5 0 0 1-10 0H5a7 7 0 0 0 6 6.92V21h2v-2.08A7 7 0 0 0 19 12h-2z"/></svg>
+      </button>
+      <div class="meter" style="max-width:280px;margin:16px auto 0"><i class="lv"></i></div>
+      <div class="rec-info" id="recInfo">Bấm nút để bắt đầu ${isT1?"đọc":"trả lời"}</div>
+    </div>
+  </div>`;
+  if (!isT1) setTimeout(playQ, 500);
+}
+async function playQ(){
+  if (qPlays>=2 || REC) return;
+  qPlays++; const b=$("#btnQ"); b.disabled=true;
+  await speak(S.sp.t2[S.sp.idx].q);
+  const l=$("#qLeft"); if (l) l.textContent = qPlays>=2?"(hết lượt)":`(còn ${2-qPlays} lượt)`;
+  if (b) b.disabled = qPlays>=2;
+}
+async function toggleRec(key){
+  const btn=$("#recBtn"), info=$("#recInfo");
+  if (!REC){
+    speechSynthesis.cancel(); const bq=$("#btnQ"); if (bq) bq.disabled=true;
+    REC = startRecording(); const t0=Date.now(), max = S.sp.task===1?T1_MAX_SEC:T2_MAX_SEC;
+    btn.classList.remove("idle"); btn.classList.add("pulse");
+    btn.innerHTML = `<svg width="30" height="30" viewBox="0 0 24 24" fill="currentColor"><rect x="6" y="6" width="12" height="12" rx="2"/></svg>`;
+    const tick=()=>{ const s=Math.floor((Date.now()-t0)/1000); info.innerHTML=`Đang ghi âm <span class="t">${String(Math.floor(s/60)).padStart(2,"0")}:${String(s%60).padStart(2,"0")}</span> / ${max}s — bấm để dừng`; if (s>=max) toggleRec(key); };
+    tick(); recTimer=setInterval(tick,250);
+    return;
+  }
+  if (stopping) return; stopping = true;
+  clearInterval(recTimer); btn.disabled=true;
+  const r = await REC.stop(); REC=null;
+  btn.classList.remove("pulse"); info.textContent="Đang lưu bản ghi…";
+  const b64 = await blobToB64(r.blob);
+  const meta = { sec:Math.round(r.sec*10)/10, silent: r.peak<0.02 };
+  const isT1 = S.sp.task===1;
+  const prompt = isT1 ? TEST.speaking.t1[S.sp.idx] : S.sp.t2[S.sp.idx].q;
+  try{ await api("audio", { sid:S.sid, key, b64, prompt, meta }, 4); S.sp.done[key]=1; }
+  catch(e){ S.pending[key] = { b64, prompt, meta }; S.sp.done[key]=2; toast("Mạng chập chờn – bản ghi được giữ lại và gửi lại khi nộp bài."); }
+  save(); stopping = false;
+  nextSpeak();
+}
+function nextSpeak(){
+  const sp=S.sp, len = sp.task===1 ? TEST.speaking.t1.length : sp.t2.length;
+  if (S.spTimeUp){ clearInterval(timerInt); S.phase="finishing"; save(); return render(); }
+  if (sp.idx < len-1){ sp.idx++; save(); return renderSpeaking(); }
+  if (sp.task===1){ sp.task=2; sp.idx=0; save();
+    $("#app").innerHTML = `<div class="card narrow" style="text-align:center"><h2>Bạn đã hoàn thành Task 1</h2><p class="lead">Tiếp theo là Task 2, phần trả lời câu hỏi. Hệ thống sẽ đọc từng câu hỏi (bạn được nghe tối đa 2 lần), đồng thời câu hỏi cũng hiển thị trên màn hình để bạn tiện theo dõi.</p><button class="btn btn-primary btn-lg" onclick="renderSpeaking()">Bắt đầu Task 2 →</button></div>`;
+    return; }
+  S.phase="finishing"; save(); render();
+}
+async function renderFinishing(){
+  clearInterval(timerInt);
+  $("#app").innerHTML = `<div class="card narrow" style="text-align:center"><div class="spinner"></div><h2 style="margin-top:16px">Đang nộp bài…</h2><p class="muted">Vui lòng không đóng trang.</p></div>`;
+  try{
+    for (const k of Object.keys(S.pending||{})){ const p=S.pending[k]; await api("audio",{ sid:S.sid, key:k, b64:p.b64, prompt:p.prompt, meta:p.meta },4); delete S.pending[k]; save(); }
+    const r = await api("finish", { sid:S.sid, t2:S.sp.t2, done:S.sp.done }, 5);
+    S.mode = r.mode || "LIVE"; S.phase="done"; save(); render();
+  }catch(e){
+    $("#app").innerHTML = `<div class="card narrow" style="text-align:center"><h2>Chưa nộp được bài</h2><p>Kết nối mạng đang có vấn đề. Bài làm vẫn được lưu trên máy này.</p><button class="btn btn-primary" onclick="render()">Thử nộp lại</button></div>`;
+  }
+}
+function renderDone(){
+  const pilot = S.mode==="PILOT";
+  if (MIC){ MIC.stream.getTracks().forEach(t=>t.stop()); MIC=null; }
+  $("#app").innerHTML = `
+  <div class="card narrow" style="text-align:center;padding:40px 28px">
+    <div class="done-ic"><svg width="44" height="44" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><path d="M5 12l5 5L20 7"/></svg></div>
+    <h1>Cảm ơn ${esc((S.info.name||"bạn").split(" ").slice(-1)[0])}, bạn đã hoàn thành bài kiểm tra!</h1>
+    <p class="lead">${pilot
+      ? "Bài làm của bạn đã được Vingo ghi nhận. Đội ngũ Học thuật sẽ gửi kết quả cùng nhận xét chi tiết tới bạn trong thời gian sớm nhất."
+      : `Trong khoảng <b>10–15 phút</b> tới, kết quả bài kiểm tra cùng nhận xét chi tiết và lớp học phù hợp sẽ được gửi tới email <b>${esc(S.info.email)}</b>. Nếu chưa thấy email, bạn nhớ kiểm tra thêm hộp thư Spam hoặc Quảng cáo nhé.`}</p>
+    <p class="muted">Bên cạnh đó, tư vấn viên ${esc(S.info.sale||"")} sẽ trao đổi trực tiếp với bạn về kết quả và lộ trình học ở bước tiếp theo.</p>
+    <div class="row" style="justify-content:center;margin-top:26px"><button class="btn btn-ghost" onclick="newTest()">Bài kiểm tra mới (dành cho tư vấn viên)</button></div>
+  </div>`;
+}
+function newTest(){
+  modal(`<h3>Bắt đầu bài mới?</h3><p>Dữ liệu bài vừa làm đã được gửi lên hệ thống. Thao tác này xoá bài cũ khỏi máy để thí sinh tiếp theo làm bài.</p>
+  <div class="row end"><button class="btn btn-ghost" onclick="closeModal()">Huỷ</button><button class="btn btn-primary" onclick="closeModal();clearAll();render()">Bắt đầu bài mới</button></div>`);
+}
+
+/* ---------- Modal / nav ---------- */
+function modal(html){ $("#modalRoot").innerHTML = `<div class="modal-bg"><div class="modal">${html}</div></div>`; }
+function closeModal(){ $("#modalRoot").innerHTML=""; }
+function go(ph){ S.phase=ph; save(); render(); window.scrollTo(0,0); }
+
+/* ---------- Boot ---------- */
+(function boot(){
+  if (!S) S = blank();
+  // Đang làm dở → hỏi tư vấn viên tiếp tục hay làm mới
+  if (S.sid && !["welcome","form","done"].includes(S.phase)){
+    render();
+    if (S.phase==="written" || S.phase==="speaking" || S.phase==="speakIntro"){
+      modal(`<h3>Có bài đang làm dở</h3><p>Thí sinh <b>${esc(S.info.name||"")}</b> đang làm dở bài kiểm tra trên máy này.</p>
+        <div class="row end"><button class="btn btn-ghost" onclick="closeModal();clearAll();render()">Xoá & làm bài mới</button><button class="btn btn-primary" onclick="closeModal();resumeFix()">Tiếp tục bài này</button></div>`);
+    }
+    return;
+  }
+  render();
+})();
+function resumeFix(){ if (S.phase==="speaking"){ ensureMic().then(()=>render()).catch(()=>{S.phase="speakIntro";render();}); } else render(); }
+window.addEventListener("beforeunload", e=>{ if (["written","speaking","finishing"].includes(S.phase)){ e.preventDefault(); e.returnValue=""; } });
+</script>
+</body>
+</html>
